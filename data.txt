@@ -1,70 +1,55 @@
-<div class="container">
-
-    <div class="card">
-
-        <h5 class="card-header">User Registration Form</h5>
-
-        <div class="card-body">
-             <form (ngSubmit)="addUser(fdata)" #fdata="ngForm">
-                UserName: <input type="text" name="uname" ngModel required #un="ngModel"/>
-                <div *ngIf="un.invalid"><p>UserName cant be blank</p></div>
-
-                Password: <input type="password" name="pass" ngModel #pass="ngModel" required minlength="6"/>
-
-                <div *ngIf="pass.invalid && (pass.touched || pass.dirty)">
-                    <div *ngIf="pass.errors?.['required']"><p>Password cant be blank</p></div>
-                     <div *ngIf="pass.errors?.['minlength']"><p>Password must be 6 char long</p></div>
-                </div>
-
-                Email: <input type="email" name="email" ngModel email required/>
-                City: <input type="text" name="city" ngModel/> &nbsp;
-                <button class="btn btn-primary">Register</button>
-                <button class="btn btn-secondary" type="reset">Reset</button>
-            </form>
-        </div>
-    </div>
-</div>
-
---------------
-
 import { Component } from '@angular/core';
 import { UserDataService } from '../../shared/services/user-data.service';
-import { NgForm } from '@angular/forms';
 
 @Component({
-  selector: 'app-form',
-  templateUrl: './form.component.html',
-  styleUrl: './form.component.css'
+  selector: 'app-userdetails',
+  templateUrl: './userdetails.component.html',
+  styleUrl: './userdetails.component.css'
 })
-export class FormComponent {
+export class UserdetailsComponent {
 
-  constructor(private us:UserDataService){}
 
-  addUser(nf:NgForm){
-     
-    
-    this.us.addUserToDB(nf.value)
+  constructor(private us:UserDataService){
+    this.loadUsers()
   }
+
+   users:any[]=[]
+     loadUsers(){
+      this.us.loadUserFromDB().subscribe((res)=>{
+         this.users=res
+      })
+     }
 }
+-----
 
+<div class="container">
+    <div class="card">
+        <h5 style="text-align: center;" class="card-header">User Details</h5>
 
+        <div class="card-body">
+            <table class="table">
+                <thead>
+                    <tr>
+                       
+                        <th scope="col">UserName</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">City</th>
+                        <th scope="col">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let user of users">
 
---------
+                        <td>{{user.uname}}</td>
+                        <td>{{user.email}}</td>
+                        <td>{{user.city}}</td>
+                        <td>
+                            <button class="btn btn-warning">Edit</button> &nbsp;
+                            <button class="btn btn-danger">Delete</button>
+                        </td>
+                    </tr>
 
-import { Injectable } from '@angular/core';
-
-@Injectable({
-  providedIn: 'root'
-})
-export class UserDataService {
-
-  loadUsers():string[]{
-    return ['Admin','Manager','QA']
-  }
-  constructor() { }
-
-  addUserToDB(data:any){
-    console.log('user is added to DB ' ,data);
-    
-  }
-}
+                </tbody>
+            </table>
+        </div>
+    </div>
