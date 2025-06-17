@@ -1,0 +1,70 @@
+<div class="container">
+
+    <div class="card">
+
+        <h5 class="card-header">User Registration Form</h5>
+
+        <div class="card-body">
+             <form (ngSubmit)="addUser(fdata)" #fdata="ngForm">
+                UserName: <input type="text" name="uname" ngModel required #un="ngModel"/>
+                <div *ngIf="un.invalid"><p>UserName cant be blank</p></div>
+
+                Password: <input type="password" name="pass" ngModel #pass="ngModel" required minlength="6"/>
+
+                <div *ngIf="pass.invalid && (pass.touched || pass.dirty)">
+                    <div *ngIf="pass.errors?.['required']"><p>Password cant be blank</p></div>
+                     <div *ngIf="pass.errors?.['minlength']"><p>Password must be 6 char long</p></div>
+                </div>
+
+                Email: <input type="email" name="email" ngModel email required/>
+                City: <input type="text" name="city" ngModel/> &nbsp;
+                <button class="btn btn-primary">Register</button>
+                <button class="btn btn-secondary" type="reset">Reset</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+--------------
+
+import { Component } from '@angular/core';
+import { UserDataService } from '../../shared/services/user-data.service';
+import { NgForm } from '@angular/forms';
+
+@Component({
+  selector: 'app-form',
+  templateUrl: './form.component.html',
+  styleUrl: './form.component.css'
+})
+export class FormComponent {
+
+  constructor(private us:UserDataService){}
+
+  addUser(nf:NgForm){
+     
+    
+    this.us.addUserToDB(nf.value)
+  }
+}
+
+
+
+--------
+
+import { Injectable } from '@angular/core';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class UserDataService {
+
+  loadUsers():string[]{
+    return ['Admin','Manager','QA']
+  }
+  constructor() { }
+
+  addUserToDB(data:any){
+    console.log('user is added to DB ' ,data);
+    
+  }
+}
