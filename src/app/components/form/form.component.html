@@ -1,0 +1,35 @@
+<div class="container">
+
+    <div class="card">
+
+        <h5 class="card-header">User Registration Form</h5>
+
+        <div class="card-body">
+             <form (ngSubmit)="addUser(fdata)" #fdata="ngForm">
+                UserName: <input type="text" name="uname" ngModel required #un="ngModel"/>
+                <div *ngIf="un.invalid"><p>UserName cant be blank</p></div>
+
+                Password: <input type="password" name="pass" ngModel #pass="ngModel" required minlength="6"/>
+
+                <div *ngIf="pass.invalid && (pass.touched || pass.dirty)">
+                    <div *ngIf="pass.errors?.['required']"><p>Password cant be blank</p></div>
+                     <div *ngIf="pass.errors?.['minlength']"><p>Password must be 6 char long</p></div>
+                </div>
+
+                Email: <input type="email" name="email" ngModel email required #email="ngModel"/>
+                 <div *ngIf="email.invalid && (email.touched || email.dirty)">
+                    <div *ngIf="email.errors?.['required']"><p>email cant be blank</p></div>
+                     <div *ngIf="email.errors?.['email']"><p>Email must be formatted</p></div>
+                </div>
+
+                State: <select name="state" ngModel #state="ngModel">
+                    <option value="">Select State</option>
+                    <option *ngFor="let state of State" >{{state}}</option>
+                </select>
+                City: <input type="text" name="city" ngModel/> &nbsp;
+                <button class="btn btn-primary" [disabled]="fdata.invalid">Register</button>
+                <button class="btn btn-secondary" type="reset">Reset</button>
+            </form>
+        </div>
+    </div>
+</div>

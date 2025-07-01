@@ -1,0 +1,35 @@
+
+<p>Using hidden Tag</p>
+<div [hidden]="shopCart.length == 0">Items in my cart</div>
+
+<div [hidden]="shopCart.length > 0">No Items Found</div>
+
+<p>Using ngIf Tag</p>
+
+<div *ngIf="shopCart.length > 0">Items in my cart</div>
+
+<div *ngIf="shopCart.length == 0">No Items Found</div>
+
+
+<p>Using ngTemplate Tag</p>
+
+
+<div *ngIf="shopCart.length > 0; then show else noshow"> </div>
+    
+ 
+
+<ng-template #show>Items in my cart</ng-template>
+
+<ng-template #noshow>No Items Found</ng-template>
+
+<hr>
+<p>Style Binding</p>
+
+<ul *ngFor="let person of people">
+    <li [ngStyle]="{'color':getColor(person.country)}">
+        {{person.name}} --- {{person.country}}
+    </li>
+
+</ul>
+
+ 

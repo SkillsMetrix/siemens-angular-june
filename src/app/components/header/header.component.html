@@ -1,0 +1,31 @@
+<p> Example -1</p>
+
+<div *ngIf="userDetails.length > 0; then show else noshow"> </div>
+<ng-template #show>
+   <ul>
+    <li *ngFor="let user of userDetails; let i= index">
+     {{i}} --  {{user}}
+    </li>
+</ul>
+
+</ng-template>
+
+<ng-template #noshow>No Users Found</ng-template>
+
+<p> Example -2</p>
+<ul>
+     @for(user of userDetails; track user){
+        <li>{{user}}</li>
+     }
+     @empty {
+        <h5>No User Found</h5>
+     }
+</ul>
+<hr>
+
+<p>Property Binding</p>
+ UserName: <input type="text" [(ngModel)]="uname"> : {{uname}}
+
+ Profile: <img [src]="profile" width="100" height="100">
+
+ <button (click)="addUser()">Add</button>

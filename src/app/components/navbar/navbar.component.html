@@ -1,0 +1,17 @@
+
+<div class="container">
+    <ul class="nav">
+        <li class="nav-item">
+            <a *ngIf="!guard.isAllowed" routerLink="login" class="nav-link">Login</a>
+        </li>
+         <li class="nav-item">
+            <a *ngIf="!guard.isAllowed" routerLink="register" class="nav-link">Register</a>
+        </li>
+         <li class="nav-item">
+            <a *ngIf="guard.isAllowed" routerLink="portfolio" class="nav-link">Portfolio</a>
+        </li>
+         <li class="nav-item">
+            <a *ngIf="guard.isAllowed" routerLink="userdetails" class="nav-link">UserDetails</a>
+        </li>
+    </ul>
+</div>  

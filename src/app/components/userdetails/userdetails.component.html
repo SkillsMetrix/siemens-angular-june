@@ -1,0 +1,31 @@
+<div class="container">
+    <div class="card">
+        <h5 style="text-align: center;" class="card-header">User Details</h5>
+            <button (click)="logout()" class="btn btn-danger">logout</button>
+        <div class="card-body">
+            <table class="table">
+                <thead>
+                    <tr>
+                       
+                        <th scope="col">UserName</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">City</th>
+                        <th scope="col">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let user of users">
+
+                        <td>{{user.uname}}</td>
+                        <td>{{user.email}}</td>
+                        <td>{{user.city}}</td>
+                        <td>
+                            <button class="btn btn-warning">Edit</button> &nbsp;
+                            <button (click)="deleteUser(user.id)" class="btn btn-danger">Delete</button>
+                        </td>
+                    </tr>
+
+                </tbody>
+            </table>
+        </div>
+    </div>

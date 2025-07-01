@@ -1,0 +1,20 @@
+<div class="container">
+  <div class="card">
+    <h5 class="card-header">User Login Form</h5>
+
+    <div class="card-body">
+      <form (ngSubmit)="login()" [formGroup]="userForm">
+        UserName: <input type="text" formControlName="uname" />
+
+        <app-error [control]="formControls['uname']"></app-error>
+
+        Password: <input type="password" formControlName="pass" />
+        <app-error [control]="formControls['pass']"></app-error>
+
+       &nbsp; <button [disabled]="userForm.invalid" class="btn btn-primary"> 
+          Login
+        </button>
+      </form>
+    </div>
+  </div>
+</div>

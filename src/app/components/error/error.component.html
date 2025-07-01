@@ -1,0 +1,5 @@
+<div *ngIf="control && control.invalid && (control.dirty || control.touched)">
+  <div *ngFor="let errorKey of errorkeys">
+    <p> {{getErrorMessage(errorKey)}}</p>
+  </div>
+</div>

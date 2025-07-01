@@ -1,0 +1,46 @@
+<div class="container">
+  <div class="card">
+    <h5 class="card-header">User Registration Form</h5>
+
+    <div class="card-body">
+      <form (ngSubmit)="addUser()" [formGroup]="userForm">
+        UserName: <input type="text" formControlName="uname" />
+
+      <app-error [control]="formControls['uname']"></app-error>
+
+        Password: <input type="password" formControlName="pass" />
+
+        Email: <input type="email" formControlName="email" />
+
+          
+        <div
+          *ngIf="
+            userForm.get('email')?.invalid &&
+            (userForm.get('email')?.touched || userForm.get('email')?.dirty)
+          "
+        >
+          <div *ngIf="userForm.get('email')?.errors?.['required'] ">
+            <p>Email cant be Blank</p>
+
+          </div>
+           <div *ngIf="userForm.get('email')?.errors?.['emailError'] ">
+            <p>Email Must be 'siemens.com'</p>
+          </div>
+        </div>
+
+          State:
+        <select formControlName="state">
+          <option value="">Select State</option>
+          <option *ngFor="let state of State">{{ state }}</option>
+        </select>
+        City: <input type="text" formControlName="city" /> &nbsp;
+        <button [disabled]="userForm.invalid" class="btn btn-primary">Register</button>
+       
+      </form>
+    </div>
+  </div>
+</div>
+
+
+
+ 
