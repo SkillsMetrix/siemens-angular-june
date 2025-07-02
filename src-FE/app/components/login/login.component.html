@@ -1,0 +1,32 @@
+<div class="container">
+  <div class="card">
+    <div class="card-header">
+      <p>User Login Form</p>
+    </div>
+    <div class="card-body">
+      <form (ngSubmit)="login()" [formGroup]="regForm">
+        UserName:
+        <input type="text" placeholder="Enter Name" formControlName="username" />
+
+        <div
+          *ngIf="
+            regForm.get('username')?.invalid &&
+            (regForm.get('username')?.touched || regForm.get('username')?.dirty)
+          "
+        >
+          <div *ngIf="regForm.get('username')?.errors?.['required']">
+            Name cant be empty
+          </div>
+        </div>
+
+        password:<input type="password" formControlName="password" /> &nbsp;
+
+        <button [disabled]="regForm.invalid" class="btn btn-primary">
+          Login
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <br />
+</div>
